@@ -10,6 +10,7 @@ with open(csvpath, newline="") as csvfile: #open the csvfile
     total_votes = 0
     candList = [] #make a list for candidates
     voteList = [] #make a list to hold all the vote result
+    countList = [] #make a list to hold the corresponding number of votes for each candi
     
     for row in csvreader: #loop through entire rows
         voteList.append(row[2])
@@ -23,6 +24,12 @@ with open(csvpath, newline="") as csvfile: #open the csvfile
     print("-------------------------------")
     
     for x in range(len(candList)):
-        counts = voteList.count(candList[x])
+        counts = voteList.count(candList[x]) #count the candidate name in votelist
+        countList.append(counts) #add the number to countlist
         percentage = round((counts / total_votes *100),2)
         print(f"{candList[x]}: {percentage}% ({counts})")
+    
+    winner_index = countList.index(max(countList))
+    print("-------------------------------")
+    print(f"Winner: {voteList[winner_index]}")
+    print("-------------------------------")
